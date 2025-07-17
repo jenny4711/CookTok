@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct CookTokApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for:[Items.self,ShopingItem.self])
         }
     }
 }
