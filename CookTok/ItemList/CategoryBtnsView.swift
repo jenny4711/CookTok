@@ -23,13 +23,13 @@ struct CategoryBtnsView: View {
                })
                
                ItemBtnsView(p: 2,h:40,name:"Meat", act: {
-                   print("work")
+                   selectedCategory = "Meat"
                })
                ItemBtnsView(p: 2,h:40,name:"Seafood", act: {
-                   print("FRUIT")
+                   selectedCategory = "Seafood"
                })
                ItemBtnsView(p: 2,h:40,name:"Sauce", act: {
-                   print("work")
+                   selectedCategory = "Sauce"
                })
                
                
@@ -42,13 +42,13 @@ struct CategoryBtnsView: View {
                })
                
                ItemBtnsView(p: 2,h:40,name:"Dairy", act: {
-                   print("work")
+                   selectedCategory = "Dairy"
                })
                ItemBtnsView(p: 2,h:40,name:"Junk", act: {
-                   print("FRUIT")
+                  selectedCategory = "Junk"
                })
                ItemBtnsView(p: 2,h:40,name:"Etc", act: {
-                   print("work")
+                  selectedCategory = "Etc"
                })
                
                

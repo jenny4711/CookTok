@@ -11,23 +11,38 @@ struct ItemsList: View {
      // MARK: - property
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @State var selectedCategory:String = "Veg"
+    @State var selectedCategory:String = ""
+    @State private var selectedExpireDate: Date = Date()
     @State private var showForm:Bool = false
     @State private var isEdit:Bool = false
-  @State private var selectedItem = Items()
+    @State private var isEditOpen:Bool = false
+   @State private var selectedItem = Items()
     @State var itemName:String = ""
     @State var itemExpireDate:Date = Date()
     @State var newItem:Items?
+    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
     @Query private var items:[Items]
+    
+    // TODO: filtered list array
+    var filteredItems: [Items] {
+        items
+            .filter { $0.category == selectedCategory }
+            .sorted { $0.expireDate < $1.expireDate }
+        
+    }
+    // TODO: normal list array
+    var allFilteredItems:[Items]{
+        items
+            .sorted { $0.expireDate < $1.expireDate }
+        
+    }
     var body: some View {
       
         NavigationStack {
             ZStack{
-                
-                
-                
+
                 VStack{
-                    // TODO: - Category Title
+                    // MARK: - Category Title
                     HStack {
                         Text("CATEGORIES")
                             .font(Font.bold25)
@@ -38,15 +53,15 @@ struct ItemsList: View {
                     .padding(.leading,15)
                     
                     
-                     // TODO: CATEGORYBTN
+                     // MARK: CATEGORYBTN
                         CategoryBtnsView(selectedCategory: $selectedCategory)
                         .padding(.bottom,20)
                   
                     
                     
-                    // TODO: TITLE and ADDBTN
+                    // MARK: TITLE and ADDBTN
                     HStack{
-                        Text(selectedCategory.uppercased())
+                        Text(selectedCategory != "" ? selectedCategory.uppercased():"Ingredients")
                             .font(Font.bold25)
                         Button(action: {
                             self.newItem = Items()
@@ -58,19 +73,25 @@ struct ItemsList: View {
                         
                     }//:HStack(title and add button)
                     .padding(.leading,15)
-                    
+                   
 
-                    // TODO: ITEM LIST
+                    // MARK: ITEM LIST
                     ScrollView{
-                        ForEach(items){
+                        ForEach(selectedCategory != "" ? filteredItems:allFilteredItems){
                             i in
                             
-                            ItemBtnsView(p: 15,h:50,name:i.itemName, act: {
+                            ItemBtnsView(
+                                p: 15,
+                                h:50,
+                                c: i.expireDate <= Date() ? .red : .white,
+                                name:i.itemName,
+                                act: {
                                 selectedItem = i
-                                       isEdit = true
+                                    isEditOpen = true
                                 
-                                print(i.expireDate)
+                                
                             })
+                           
                             
                         }//:LOOP
                         
@@ -82,22 +103,15 @@ struct ItemsList: View {
                         ToolbarItem(placement:.topBarTrailing){
                             
                             
-                            AskRecipe()
+                            ResetBtnView(selectedCategory: $selectedCategory)
                         }//:TOOLBARITEM
                         
 
-                        
-                        
                     }//:TOOLBAR
-                    
 
-                   
-                    
                 }//:VSTACK
                 
 
-                
-                
                 
             }//:ZSTACK
             .background(
@@ -109,48 +123,42 @@ struct ItemsList: View {
                 item in
                 AddFormView(item:item)
                     .presentationDetents([.fraction(0.3)])
-            }
-            .sheet(isPresented: $isEdit) {
-                VStack{
-                    Text(selectedItem.itemName)
-                   
-                    
-                    
-                    HStack{
-                        Button("Delete"){
-                            context.delete(selectedItem)
-                            isEdit = false
-                        }
-                        
-                        
-                    }//:HStack
-                    
-
-                }//:VSTACK
-                
-
-                Text("test \(selectedItem.itemName)")
-                Text(DateHelper.convertDate(inputDate: selectedItem.expireDate))
-                
-                    .presentationDetents([.fraction(0.3)])
-            }
+            }//:SHEET (AddFormView)
             
-        }
-       
+
+            .sheet(isPresented: $isEditOpen) {
+                EditFormView( selectedItem: $selectedItem, selectedCategory: $selectedCategory, selectedExpireDate: $selectedExpireDate, isEdit: $isEdit, isEditOpen: $isEditOpen)
+                
+
+            }//:SHEET(EDIT)
+            
+
+            .onChange(of: isEdit) { newValue, oldValue in
+                if newValue {
+                  
+                    selectedExpireDate = selectedItem.expireDate
+                    
+                    selectedCategory = selectedItem.category!
+                }else{
+                    return
+                }
+            }//:ONCHANGE
+            
+
+            
+        }//:NAVIGATIONSTACK
+        
 
     }
 }
 
 
-
-
-
  // MARK: - AskRecipeBtn
-struct AskRecipe: View {
-    
+struct ResetBtnView: View {
+    @Binding var selectedCategory:String
     var body: some View {
-        Button("ASK RECIPE") {
-            EmptyView()
+        Button("RESET") {
+            selectedCategory = ""
         }
         .font(Font.bold16)
         .foregroundColor(.black)
@@ -160,14 +168,6 @@ struct AskRecipe: View {
 
 
 
- // MARK: - List
-
-struct IngredientsList: View {
-    
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
 
 
  

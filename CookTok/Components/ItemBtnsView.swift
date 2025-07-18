@@ -12,6 +12,7 @@ import SwiftUI
 struct ItemBtnsView: View {
    var p :CGFloat = 120
    var h :CGFloat = 40
+    var c:Color = .white
    var name : String = ""
   var act: () -> Void
    
@@ -21,13 +22,14 @@ struct ItemBtnsView: View {
                RoundedRectangle(cornerRadius: 15)
               
            
-                   .tint(.white)
+                   .tint(c)
                Text(name)
                    .font(Font.reg16)
                    .foregroundColor(.black)
                
            }
            .frame(maxWidth: .infinity, minHeight: h, maxHeight: h)
+           
            .padding(.horizontal,p)
        }//:BTN&LABEL
    }

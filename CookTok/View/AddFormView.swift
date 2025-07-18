@@ -12,10 +12,10 @@ import SwiftUI
 struct AddFormView: View {
    @Environment(\.modelContext) private var context
    @Environment(\.dismiss) private var dismiss
-   var item:Items
+    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry"]
+    var item:Items
    @State var selectedCategory:String = "Select Category"
-   let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry"]
- @State private var showSelection:Bool = false
+   @State private var showSelection:Bool = false
    @State var itemName:String = ""
    @State var itemExpireDate:Date = Date()
    var body: some View {
@@ -37,9 +37,7 @@ struct AddFormView: View {
                    dismiss()
                }
                
-                
-                      
-                       
+ // MARK: - select category
                    HStack {
                      
                        Text("Categoris")
@@ -62,16 +60,9 @@ struct AddFormView: View {
                    } //:HStack(Picker)
                    
 
-                   
-             
-//                .padding(.horizontal,16)
-               
+ // MARK: - select Expire Date
                VStack{
-                  
-                   
-                 
-                   
-                   
+
                    DatePicker("Expire Date",
                               selection: $itemExpireDate,
                               in: Date()...,
@@ -92,8 +83,6 @@ struct AddFormView: View {
                
            }//:VSTACK
            .padding(.horizontal,16)
-           
-
            
            
        }//:ZSTACK

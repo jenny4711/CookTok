@@ -11,8 +11,9 @@ import SwiftData
 struct ShoppingListView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Query private var shoppingItems:[ShopingItem]
-    
+//    @Query private var shoppingItems:[ShopingItem]
+    @Query(sort:\ShopingItem.expireDate,order:.reverse)
+    private var shoppingItems:[ShopingItem]
     @State var newShoppingItem:ShopingItem?
     @State var checked:Bool = false
     @State var shoppingItemName:String = ""
@@ -22,7 +23,7 @@ struct ShoppingListView: View {
     @State var itemExpireDate:Date = Date()
     @State var selectedCategory:String = ""
     @State var goNext:Bool = false
-    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry"]
+    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
  
     
     
@@ -49,11 +50,11 @@ struct ShoppingListView: View {
                                 HStack {
                                     
                                     Text("Categoris")
-                                    
+                                        .foregroundColor(.black)
                                     
                                     
                                     Picker("카테고리 선택", selection: $selectedCategory) {
-                                        
+                                        Text("All").tag("")
                                         
                                         ForEach(categoris, id: \.self) { category in
                                             
@@ -64,15 +65,20 @@ struct ShoppingListView: View {
                                         
                                     }
                                     .pickerStyle(.menu)
+                                    .tint(.black)
                                     
-                                    
-                                }
+                                }//:HSTACK PICKER(CATEGORY)
+                              
+
                                Spacer()
                                 Button(action: {
                                     goNext = true
                                 }) {
-                                   Image(systemName:"chevron.right")
-                                        .tint(.black)
+                                    
+                                    Text("REFRIGERATOR")
+                                        .font(Font.bold16)
+                                        .foregroundColor(.black)
+
                                 }
                             } //:HStack(Picker)
                             
@@ -91,7 +97,10 @@ struct ShoppingListView: View {
                                 )
                                 
                                 TextField("ItemName",text:$itemName)
-                                    .textFieldStyle(.roundedBorder)
+                                    .textFieldStyle(PlainTextFieldStyle())
+                                       .padding()
+                                       .background(Color.white) // 배경색 설정
+                                       .cornerRadius(8)
                                 
                                 Button("SAVE") {
                                     print("SAVE")
@@ -107,12 +116,16 @@ struct ShoppingListView: View {
                                     selectedCategory = ""
                                     
                                     
-                                }
-                                
-                                
+                                }//:BUTTON
+                                .buttonStyle(.bordered)
+                                .background(Color.customBlue)
+
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+
                             }
-                            
-                            
+                          
+                            .foregroundColor(.black)
                             
                             
                         }//:VSTACK
@@ -128,6 +141,7 @@ struct ShoppingListView: View {
                         Spacer()
                     }
                     .padding(.leading,20)
+                    .padding(.top,20)
                     ScrollView{
                         
                         ForEach(shoppingItems){
@@ -144,17 +158,12 @@ struct ShoppingListView: View {
                              
                             })
                             
-                        }
-                        
-                        
+                        }//:LOOP
                         
                         
                     }//:SCROLLVIEW
-                    .padding(.top,40)
-                    
-                    
-                    
-                    
+                    .padding(.top,20)
+
                     
                 }//:VSTACK
                 
@@ -165,10 +174,10 @@ struct ShoppingListView: View {
             .navigationDestination(isPresented: $goNext) {
                 ItemsList()
             }
-            
-            
-            
-        }
+  
+        }//:NAVIGATIONSTACK
+        
+
     }
 }
 
