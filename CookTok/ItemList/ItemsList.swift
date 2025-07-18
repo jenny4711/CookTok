@@ -87,6 +87,8 @@ struct ItemsList: View {
                                 name:i.itemName,
                                 act: {
                                 selectedItem = i
+                                    selectedExpireDate = i.expireDate
+                                    selectedCategory = i.category ?? ""
                                     isEditOpen = true
                                 
                                 
@@ -136,9 +138,7 @@ struct ItemsList: View {
             .onChange(of: isEdit) { newValue, oldValue in
                 if newValue {
                   
-                    selectedExpireDate = selectedItem.expireDate
-                    
-                    selectedCategory = selectedItem.category!
+           
                 }else{
                     return
                 }

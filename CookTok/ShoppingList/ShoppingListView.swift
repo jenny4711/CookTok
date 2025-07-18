@@ -152,6 +152,7 @@ struct ShoppingListView: View {
                                 let ingre = Items()
                                 ingre.itemName = item.itemName
                                 ingre.expireDate = item.expireDate
+                                ingre.category = item.category
                                 context.insert(ingre)
                                 context.delete(item)
                                 

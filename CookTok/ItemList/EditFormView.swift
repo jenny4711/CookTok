@@ -27,6 +27,13 @@ struct EditFormView: View {
                     .font(Font.title3)
                 Text("\(selectedItem.category ?? "")")
                     .font(Font.reg16)
+                HStack {
+                    Text("Exp:")
+                        .font(Font.bold16)
+                    Text(DateHelper.convertDate(inputDate: selectedItem.expireDate))
+                        .font(Font.reg16)
+                }
+             
                 
                 HStack {
                     
@@ -47,7 +54,7 @@ struct EditFormView: View {
                     .tint(.black)
                     Spacer()
                 }//:PICKER(CATEGORY)
-                
+                .padding(.top,15)
                 
                 
                        DatePicker("Expire Date",
@@ -72,11 +79,19 @@ struct EditFormView: View {
                         var changed = false
                         if selectedItem.expireDate != selectedExpireDate {
                             selectedItem.expireDate = selectedExpireDate
+                      
                             changed = true
+                        }else{
+                            print(selectedItem.expireDate)
+                            selectedItem.expireDate = selectedItem.expireDate
                         }
                         if selectedItem.category != selectedCategory {
+                            print("2selected-category!!\(selectedItem.category)")
                             selectedItem.category = selectedCategory
                             changed = true
+                        }else{
+                            selectedItem.category = selectedItem.category
+                            print("category-else")
                         }
                         
                         isEdit = changed
@@ -89,13 +104,17 @@ struct EditFormView: View {
                     
                     
                 }//:HStack
-                
+             
                 
             }//:VSTACK
             .padding()
 
             .presentationDetents([.fraction(0.3)])
         }//:ZSTACK
+        .onAppear{
+            selectedExpireDate = selectedItem.expireDate
+            selectedCategory = selectedItem.category ?? ""
+        }
         .foregroundStyle(.black)
         
     }
