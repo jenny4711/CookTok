@@ -16,13 +16,20 @@ class AskAI: ObservableObject {
     
     private let model: GenerativeModel = VertexAI.vertexAI().generativeModel(modelName: "gemini-2.5-flash")
     
-    func newRecipe(ingredients: [Items]) async {
-        await getRecipe(ingredients)
+    func newRecipe(ingredients: [Items],lang:String) async {
+        await getRecipe(ingredients,lang)
     }
 }
 
 extension AskAI {
-    func getRecipe(_ ingredients: [Items]) async {
+    func getRecipe(_ ingredients: [Items],_ lang:String) async {
+        let randomStyles = ["한식", "양식", "중식", "일식", "퓨전", "건강식", "간단요리", "고급요리"]
+        let randomStylesENG = ["Korean", "Western", "Chinese", "Japanese", "Fusion", "Healthy", "Simple", "High-end"]
+        let randomStyleKR = randomStyles.randomElement() ?? "한식"
+        let randomStyleENG = randomStylesENG.randomElement() ?? "Korean" 
+
+
+        
         await MainActor.run {
             self.isLoading = true
             self.geminiResponse = "Gemini가 생각 중입니다..."
@@ -32,30 +39,50 @@ extension AskAI {
             // 재료 이름들을 문자열로 변환
             let ingredientNames = ingredients.compactMap { $0.itemName }.joined(separator: ", ")
             
-            let prompt = """
-            냉장고에 있는 재료: \(ingredientNames)
+            let promptKR = """
+            재료: \(ingredientNames)
             
-            이 재료들로 만들 수 있는 난이도 는 초급 수준 으로 맛있는 레시피 2개정도 알려주세요. 
-            참고로 ** 나 ## 같은 특수 문자는 작성하지 마세요
-            다음 형식으로 답변해주세요:
+             이 재료로 **\(randomStyleKR) 스타일**의 다양하고 창의적인 간단한 레시피 2개 만들어주세요. 
+            매번 다른 스타일과 조리법을 사용해주세요. 응답은 짧고 간결하게.
             
+            형식:
             [요리명]
-            재료: (필요한 재료와 양)
-            조리시간: (예상 시간)
-            난이도: (초급/중급/고급)
-            
-            조리방법:
-            1. (첫 번째 단계)
-            2. (두 번째 단계)
-            ...
-            
-            팁: (조리 팁이나 주의사항)
+            재료: (재료와 양)
+            시간: (분)
+            조리법:
+            1. (단계)
+            2. (단계)
+            팁: (간단한 팁)
             """
             
-            let response = try await model.generateContent(prompt)
-
+            let prompt = """
+            Ingredients: \(ingredientNames)
+            
+            Create 2 simple **\(randomStyleENG)** 
+            recipes using these ingredients. Keep responses short and concise.
+            
+            Format:
+            [Recipe Name]
+            Ingredients: (list with amounts)
+            Time: (minutes)
+            Steps:
+            1. (step)
+            2. (step)
+            Tips: (brief tip)
+            """
+          
+           print("lang-AI-\(lang)")
+            
+            var response = try await model.generateContent(prompt)
+            if lang == "KOR"{
+                response = try await model.generateContent(promptKR)
+            }else{
+                response = try await model.generateContent(prompt)
+            }
+            let responseText = response.text
+          
             await MainActor.run {
-                if let text = response.text {
+                if let text = responseText {
                     self.geminiResponse = text
                     print(text)
                   // self.showAISummery = true  // 응답을 받으면 시트 표시
@@ -76,8 +103,6 @@ extension AskAI {
         }
     }
     
-    func checkRes(){
-        
-    }
+    
     
 }

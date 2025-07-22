@@ -12,12 +12,13 @@ struct ShoppingListView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 //    @Query private var shoppingItems:[ShopingItem]
+    @Query(sort: \User.id) private var userInfo: [User]
     @Query(sort:\ShopingItem.expireDate,order:.reverse)
     private var shoppingItems:[ShopingItem]
     @State var newShoppingItem:ShopingItem?
     @State var checked:Bool = false
     @State var shoppingItemName:String = ""
-    
+    @State var isAnimated = false
     @State var newItem:Items?
     @State var itemName:String = ""
     @State var itemExpireDate:Date = Date()
@@ -71,6 +72,7 @@ struct ShoppingListView: View {
                               
 
                                Spacer()
+                                 // MARK: - nextPg BTN
                                 Button(action: {
                                     goNext = true
                                 }) {
@@ -82,7 +84,7 @@ struct ShoppingListView: View {
                                 }
                             } //:HStack(Picker)
                             
-                            
+                             // MARK: - Form(DATE,CATEGORY,SAVE)
                             
                             VStack{
                                 
@@ -123,8 +125,8 @@ struct ShoppingListView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
 
-                            }
-                          
+                            }//:VSTACK(FORM)
+
                             .foregroundColor(.black)
                             
                             
@@ -133,13 +135,49 @@ struct ShoppingListView: View {
                         .padding(.top,50)
                     }
 
-                    
+                     // MARK: - Shopping List and lang btn
                     HStack {
-                        Text("Food Shopping List")
+                        Text(userInfo.first?.language == "ENG" ? "Shopping List" : "장보기 리스트")
                             .font(Font.bold25)
                             .foregroundColor(.white)
+                        
+                        HStack {
+                        
+                            HStack(spacing:1) {
+                              
+                                Text(userInfo.first?.language ?? "language")
+                                    .font(Font.reg16)
+                                    .foregroundColor(.white)
+                                Toggle("", isOn: $isAnimated)
+                                    .toggleStyle(SwitchToggleStyle(tint: .purple))
+                                    .scaleEffect(0.7)
+                             
+                              
+                            }
+                           
+                            .frame(width:75)
+                            .padding(.leading,16)
+                        }
                         Spacer()
-                    }
+                    }//:HSTACK(Shopping List and lang btn)
+                    
+
+                    
+                         
+                    .onChange(of:isAnimated){
+                        if let existingUser = userInfo.first {
+                            // 기존 사용자 업데이트
+                            existingUser.language = isAnimated ? "ENG" : "KOR"
+                        } else {
+                            // 새 사용자 생성
+                            let newUser = User()
+                            newUser.language = isAnimated ? "ENG" : "KOR"
+                            context.insert(newUser)
+                        }
+                        print("shooppingListLang:\(userInfo.first?.language ?? "NoLang")")
+                    }//:onchange(lang)
+                    
+
                     .padding(.leading,20)
                     .padding(.top,20)
                     ScrollView{

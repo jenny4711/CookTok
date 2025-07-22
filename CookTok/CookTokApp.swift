@@ -25,7 +25,7 @@ struct CookTokApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for:[Items.self,ShopingItem.self])
+                .modelContainer(for:[Items.self,ShopingItem.self,User.self])
         }
     }
 }
