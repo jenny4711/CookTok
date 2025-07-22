@@ -19,7 +19,7 @@ struct ShowAiRecipe: View {
             .font(Font.bold25)
             .foregroundColor(Color.customBlue)
             .padding(.bottom,10)
-            .padding(.top,10)
+            .padding(.top,20)
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(.white)
@@ -108,6 +108,7 @@ struct FormattedRecipeText: View {
                     }
                 }
                 .padding(.bottom, 12)
+                
             }
         }
     }

@@ -22,9 +22,10 @@ struct ItemsList: View {
     @State var newItem:Items?
     @State var aiAnswer:Bool = false
     @StateObject private var askAI = AskAI()
-    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
+//    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
+//    let categorisKR:[String] = ["채소","고기","해산물","양념","마른것","유제품","인스턴트","기타"]
     @Query private var items:[Items]
-    
+    @Query(sort: \User.id) private var userInfo: [User]
     // TODO: filtered list array
     var filteredItems: [Items] {
         items
@@ -46,7 +47,8 @@ struct ItemsList: View {
                 VStack{
                     // MARK: - Category Title
                     HStack {
-                        Text("CATEGORIES")
+                        Text(userInfo.first?.language == "ENG" ? "CATEGORIES" : "카테고리")
+                        
                             .font(Font.bold25)
                         Spacer()
                     }//:HSTACK(CATEGORY TITLE)
@@ -63,8 +65,13 @@ struct ItemsList: View {
                     
                     // MARK: TITLE and ADDBTN
                     HStack{
-                        Text(selectedCategory != "" ? selectedCategory.uppercased():"Ingredients")
-                            .font(Font.bold25)
+                        if userInfo.first?.language == "KOR" {
+                            Text("재료")
+                        }else{
+                            Text(selectedCategory != "" ? selectedCategory.uppercased():"Ingredients")
+                                .font(Font.bold25)
+                        }
+                      
                         Button(action: {
                             self.newItem = Items()
                         }) {
@@ -116,8 +123,11 @@ struct ItemsList: View {
                     HStack {
                         Spacer()
                         Button(action: {
+                       
                             Task {
-                                await askAI.newRecipe(ingredients: items)
+
+                                await askAI.newRecipe(ingredients: items,lang:userInfo.first?.language ?? "ENG")
+                               
                                 if (askAI.geminiResponse != "오류 발생"){
                                    
                                     aiAnswer = true
@@ -125,6 +135,7 @@ struct ItemsList: View {
                                     aiAnswer = false
                                 }
                             }
+
                         }) {
                             ZStack {
                          
@@ -134,13 +145,14 @@ struct ItemsList: View {
                                 VStack(spacing: 2) {
                                     
                                     if(askAI.isLoading){
-                                        Text("생각중..")
+                                        Text(userInfo.first?.language == "ENG" ? "Thinking" : "생각중..")
                                             .font(Font.bold16)
                                     }else{
                                         
-                                           Text("GET")
+                                        Text(userInfo.first?.language == "ENG" ? "GET" : "레서피")
                                              .font(Font.bold16)
-                                           Text("RECIPE")
+                                        Text(userInfo.first?.language == "ENG" ? "RECIPE" : "받기")
+                                          
                                             .font(Font.bold16)
                                     }
                                     
@@ -193,6 +205,9 @@ struct ItemsList: View {
 
             
         }//:NAVIGATIONSTACK
+        .onAppear{
+            print("ItemListLang:\(userInfo.first?.language ?? "NoLang")")
+        }
         
 
     }
