@@ -26,7 +26,7 @@ extension AskAI {
         let randomStyles = ["한식", "양식", "중식", "일식", "퓨전", "건강식", "간단요리", "고급요리"]
         let randomStylesENG = ["Korean", "Western", "Chinese", "Japanese", "Fusion", "Healthy", "Simple", "High-end"]
         let randomStyleKR = randomStyles.randomElement() ?? "한식"
-        let randomStyleENG = randomStylesENG.randomElement() ?? "Korean" 
+        let randomStyleENG = randomStylesENG.randomElement() ?? "Korean"
 
 
         
@@ -40,14 +40,15 @@ extension AskAI {
             let ingredientNames = ingredients.compactMap { $0.itemName }.joined(separator: ", ")
             
             let promptKR = """
-            재료: \(ingredientNames)
+            사용 가능한 재료: \(ingredientNames)
             
-             이 재료로 **\(randomStyleKR) 스타일**의 다양하고 창의적인 간단한 레시피 2개 만들어주세요. 
-            매번 다른 스타일과 조리법을 사용해주세요. 응답은 짧고 간결하게.
+            이 재료들 중에서 **가장 적합한 조합을 선택해서** \(randomStyleKR) 스타일의 맛있는 레시피 2개 만들어주세요.
+            모든 재료를 사용할 필요는 없고, 가장 맛있고 간단한 조합을 선택해주세요.
+            응답은 짧고 간결하게.
             
             형식:
             [요리명]
-            재료: (재료와 양)
+            재료: (선택한 재료와 양)
             시간: (분)
             조리법:
             1. (단계)
@@ -56,14 +57,15 @@ extension AskAI {
             """
             
             let prompt = """
-            Ingredients: \(ingredientNames)
+            Available ingredients: \(ingredientNames)
             
-            Create 2 simple **\(randomStyleENG)** 
-            recipes using these ingredients. Keep responses short and concise.
+            Choose the **best combination** from these ingredients to create 2 delicious \(randomStyleENG) recipes.
+            You don't need to use all ingredients - select the most suitable and tasty combination.
+            Keep responses short and concise.
             
             Format:
             [Recipe Name]
-            Ingredients: (list with amounts)
+            Ingredients: (selected ingredients with amounts)
             Time: (minutes)
             Steps:
             1. (step)
