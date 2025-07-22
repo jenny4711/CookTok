@@ -173,6 +173,7 @@ struct ShoppingListView: View {
             .navigationBarBackButtonHidden()
             
             .navigationDestination(isPresented: $goNext) {
+               // ShowAiRecipe()
                 ItemsList()
             }
   
