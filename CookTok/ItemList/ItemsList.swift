@@ -14,12 +14,14 @@ struct ItemsList: View {
     @State var selectedCategory:String = ""
     @State private var selectedExpireDate: Date = Date()
     @State private var showForm:Bool = false
-    @State private var isEdit:Bool = false
+        @State private var isEdit:Bool = false
     @State private var isEditOpen:Bool = false
-   @State private var selectedItem = Items()
+    @State private var selectedItem = Items()
     @State var itemName:String = ""
     @State var itemExpireDate:Date = Date()
     @State var newItem:Items?
+    @State var aiAnswer:Bool = false
+    @StateObject private var askAI = AskAI()
     let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
     @Query private var items:[Items]
     
@@ -110,9 +112,47 @@ struct ItemsList: View {
                         
 
                     }//:TOOLBAR
-
-                }//:VSTACK
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            Task {
+                                await askAI.newRecipe(ingredients: items)
+                                if (askAI.geminiResponse != "오류 발생"){
+                                   
+                                    aiAnswer = true
+                                }else{
+                                    aiAnswer = false
+                                }
+                            }
+                        }) {
+                            ZStack {
+                         
+                                Circle()
+                                    .frame(width: 80, height: 80)
+                                    .tint(.white)
+                                VStack(spacing: 2) {
+                                    
+                                    if(askAI.isLoading){
+                                        Text("생각중..")
+                                            .font(Font.bold16)
+                                    }else{
+                                        
+                                           Text("GET")
+                                             .font(Font.bold16)
+                                           Text("RECIPE")
+                                            .font(Font.bold16)
+                                    }
+                                    
+                                                                }
+                            }
+                        }
+                    }
+                    .padding(.trailing,16)
+         
+                                }//:VSTACK
                 
+            
 
                 
             }//:ZSTACK
@@ -134,6 +174,12 @@ struct ItemsList: View {
 
             }//:SHEET(EDIT)
             
+            .sheet(isPresented:$aiAnswer){
+             
+                ShowAiRecipe(aiResponse: askAI.geminiResponse)
+            }
+            
+             
 
             .onChange(of: isEdit) { newValue, oldValue in
                 if newValue {
@@ -165,12 +211,6 @@ struct ResetBtnView: View {
     }
 }
 
-
-
-
-
-
- 
 
 
 
