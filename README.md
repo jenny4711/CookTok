@@ -12,6 +12,24 @@
 
 # CookTok 🍳
 
+## 🎥 Demo Video
+[![CookTok Demo](https://img.youtube.com/vi/MVAb56EylyI/0.jpg)](https://youtube.com/shorts/MVAb56EylyI)
+
+*Click the image above to watch the demo video*
+
+# CookTok 🍳
+
+A smart grocery management app with AI-powered recipe recommendations.
+
+## 🎥 Demo Video
+[![CookTok Demo](https://img.youtube.com/vi/MVAb56EylyI/0.jpg)](https://youtube.com/shorts/MVAb56EylyI)
+
+*Click the image above to watch the demo video*
+
+
+
+# CookTok 🍳
+
 A smart grocery management app with AI-powered recipe recommendations.
 
 ## About
