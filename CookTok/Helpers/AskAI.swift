@@ -14,7 +14,7 @@ class AskAI: ObservableObject {
     @Published var geminiResponse: String?
     @Published var showAISummery: Bool = false
     
-    private let model: GenerativeModel = VertexAI.vertexAI().generativeModel(modelName: "gemini-2.5-flash")
+    private let model: GenerativeModel = VertexAI.vertexAI().generativeModel(modelName: "gemini-2.0-flash")
     
     func newRecipe(ingredients: [Items],lang:String) async {
         await getRecipe(ingredients,lang)
