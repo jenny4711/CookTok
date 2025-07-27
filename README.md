@@ -2,6 +2,11 @@
 
 A smart grocery management app with AI-powered recipe recommendations.
 
+## 🎥 Demo Video
+[![CookTok Demo](https://img.youtube.com/vi/MVAb56EylyI/0.jpg)](https://youtube.com/shorts/MVAb56EylyI)
+
+*Click the image above to watch the demo video*
+
 ## About
 
 The CookTokApp helps users manage their groceries with intelligent features. When you're food shopping, you can create a list. Once you've purchased items, clicking on them in the shopping list automatically saves them to your refrigerator inventory. This refrigerator list displays all the ingredients currently in your fridge. To help you keep track, items whose expiration date has passed will automatically turn red.

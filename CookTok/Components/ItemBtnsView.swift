@@ -18,14 +18,14 @@ struct ItemBtnsView: View {
    
    var body: some View {
        Button(action: {act()}) {
-           ZStack{
-               RoundedRectangle(cornerRadius: 15)
-              
-           
-                   .tint(c)
+           HStack{
+//               RoundedRectangle(cornerRadius: 15)
+//              
+//           
+//                   .tint(c)
                Text(name)
                    .font(Font.reg16)
-                   .foregroundColor(.black)
+                   .foregroundColor(.white)
                
            }
            .frame(maxWidth: .infinity, minHeight: h, maxHeight: h)
