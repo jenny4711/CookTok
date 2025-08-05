@@ -14,15 +14,18 @@ struct ItemsList: View {
     @State var selectedCategory:String = ""
     @State private var selectedExpireDate: Date = Date()
     @State private var showForm:Bool = false
-    @State private var isEdit:Bool = false
+        @State private var isEdit:Bool = false
     @State private var isEditOpen:Bool = false
-   @State private var selectedItem = Items()
+    @State private var selectedItem = Items()
     @State var itemName:String = ""
     @State var itemExpireDate:Date = Date()
     @State var newItem:Items?
-    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
+    @State var aiAnswer:Bool = false
+    @StateObject private var askAI = AskAI()
+//    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
+//    let categorisKR:[String] = ["채소","고기","해산물","양념","마른것","유제품","인스턴트","기타"]
     @Query private var items:[Items]
-    
+    @Query(sort: \User.id) private var userInfo: [User]
     // TODO: filtered list array
     var filteredItems: [Items] {
         items
@@ -44,7 +47,8 @@ struct ItemsList: View {
                 VStack{
                     // MARK: - Category Title
                     HStack {
-                        Text("CATEGORIES")
+                        Text(userInfo.first?.language == "ENG" ? "CATEGORIES" : "카테고리")
+                        
                             .font(Font.bold25)
                         Spacer()
                     }//:HSTACK(CATEGORY TITLE)
@@ -61,8 +65,13 @@ struct ItemsList: View {
                     
                     // MARK: TITLE and ADDBTN
                     HStack{
-                        Text(selectedCategory != "" ? selectedCategory.uppercased():"Ingredients")
-                            .font(Font.bold25)
+                        if userInfo.first?.language == "KOR" {
+                            Text("재료")
+                        }else{
+                            Text(selectedCategory != "" ? selectedCategory.uppercased():"Ingredients")
+                                .font(Font.bold25)
+                        }
+                      
                         Button(action: {
                             self.newItem = Items()
                         }) {
@@ -85,6 +94,7 @@ struct ItemsList: View {
                                 h:50,
                                 c: i.expireDate <= Date() ? .red : .white,
                                 name:i.itemName,
+                                isCategory:false,
                                 act: {
                                 selectedItem = i
                                     selectedExpireDate = i.expireDate
@@ -99,7 +109,7 @@ struct ItemsList: View {
                         
 
                     }//:Scroll
-                    
+                    .foregroundColor(.white)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar{
                         ToolbarItem(placement:.topBarTrailing){
@@ -110,16 +120,63 @@ struct ItemsList: View {
                         
 
                     }//:TOOLBAR
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                       
+                            Task {
 
-                }//:VSTACK
-                
+                                await askAI.newRecipe(ingredients: items,lang:userInfo.first?.language ?? "ENG")
+                               
+                                if (askAI.geminiResponse != "오류 발생"){
+                                   
+                                    aiAnswer = true
+                                }else{
+                                    aiAnswer = false
+                                }
+                            }
+
+                        }) {
+                            ZStack {
+                         
+//                              
+                                VStack(spacing: 2) {
+                                    
+                                    if(askAI.isLoading){
+                                        Text(userInfo.first?.language == "ENG" ? "Thinking" : "생각중..")
+                                            .font(Font.bold16)
+                                    }else{
+                                        
+                                        Image("recipe")
+                                        
+
+                                    }
+                                    
+                                                                }
+                            }
+                        }
+                    }
+                    .padding(.trailing,16)
+         
+                                }//:VSTACK
+                .foregroundColor(.white)
+            
 
                 
             }//:ZSTACK
             .background(
-                LinearGradient(colors: [Color.customSkyBlue,Color.customBlue], startPoint: .top, endPoint: .bottom)
-                    .ignoresSafeArea()
+                Image("veg")
+                    .opacity(0.6)
+                  
+
             )
+            .background(
+                        Color.black
+                            
+                            .ignoresSafeArea()
+                    )
+                   
             
             .sheet(item: $newItem) {
                 item in
@@ -134,6 +191,12 @@ struct ItemsList: View {
 
             }//:SHEET(EDIT)
             
+            .sheet(isPresented:$aiAnswer){
+             
+                ShowAiRecipe(aiResponse: askAI.geminiResponse)
+            }
+            
+             
 
             .onChange(of: isEdit) { newValue, oldValue in
                 if newValue {
@@ -147,6 +210,9 @@ struct ItemsList: View {
 
             
         }//:NAVIGATIONSTACK
+        .onAppear{
+            print("ItemListLang:\(userInfo.first?.language ?? "NoLang")")
+        }
         
 
     }
@@ -165,12 +231,6 @@ struct ResetBtnView: View {
     }
 }
 
-
-
-
-
-
- 
 
 
 

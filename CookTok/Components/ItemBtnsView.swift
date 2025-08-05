@@ -14,21 +14,26 @@ struct ItemBtnsView: View {
    var h :CGFloat = 40
     var c:Color = .white
    var name : String = ""
+    var isCategory :Bool = false
   var act: () -> Void
    
    var body: some View {
        Button(action: {act()}) {
-           ZStack{
-               RoundedRectangle(cornerRadius: 15)
-              
+          
+           HStack{
+               if isCategory{
+                   Image(name)
+               }else{
+                   Text(name)
+                       .font(Font.reg16)
+                       .foregroundColor(.white)
+               }
+         
            
-                   .tint(c)
-               Text(name)
-                   .font(Font.reg16)
-                   .foregroundColor(.black)
                
            }
            .frame(maxWidth: .infinity, minHeight: h, maxHeight: h)
+           
            
            .padding(.horizontal,p)
        }//:BTN&LABEL

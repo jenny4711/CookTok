@@ -3,17 +3,29 @@
 //  CookTok
 //
 //  Created by Ji y LEE on 7/16/25.
-//
+// AIzaSyA5IWhtQd8C3AgR7Tr87NJtL6bheRdb_iE
 
 import SwiftUI
 import SwiftData
+import FirebaseCore
+import FirebaseVertexAI
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}
+
 
 @main
 struct CookTokApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for:[Items.self,ShopingItem.self])
+                .modelContainer(for:[Items.self,ShopingItem.self,User.self])
         }
     }
 }
