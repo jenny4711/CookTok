@@ -12,7 +12,7 @@ import SwiftUI
 struct AddFormView: View {
    @Environment(\.modelContext) private var context
    @Environment(\.dismiss) private var dismiss
-    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry"]
+    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
     var item:Items
    @State var selectedCategory:String = "Select Category"
    @State private var showSelection:Bool = false

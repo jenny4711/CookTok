@@ -1,4 +1,4 @@
-//
+////
 //  askAI.swift
 //  CookTok
 //
@@ -26,7 +26,7 @@ extension AskAI {
         let randomStyles = ["한식", "양식", "중식", "일식", "퓨전", "건강식", "간단요리", "고급요리"]
         let randomStylesENG = ["Korean", "Western", "Chinese", "Japanese", "Fusion", "Healthy", "Simple", "High-end"]
         let randomStyleKR = randomStyles.randomElement() ?? "한식"
-        let randomStyleENG = randomStylesENG.randomElement() ?? "Korean" 
+        let randomStyleENG = randomStylesENG.randomElement() ?? "Korean"
 
 
         
@@ -43,7 +43,7 @@ extension AskAI {
             재료: \(ingredientNames)
             
              이 재료로 **\(randomStyleKR) 스타일**의 다양하고 창의적인 간단한 레시피 2개 만들어주세요. 
-            매번 다른 스타일과 조리법을 사용해주세요. 응답은 짧고 간결하게.
+            매번 다른 스타일과 조리법을 사용해주세요. 응답은 간결하게.
             
             형식:
             [요리명]
@@ -59,7 +59,7 @@ extension AskAI {
             Ingredients: \(ingredientNames)
             
             Create 2 simple **\(randomStyleENG)** 
-            recipes using these ingredients. Keep responses short and concise.
+            recipes using these ingredients. 
             
             Format:
             [Recipe Name]

@@ -19,36 +19,36 @@ struct CategoryBtnsView: View {
       
        VStack {
            HStack{
-               ItemBtnsView(p: 2,h:40,name:convertLang("채소", "Produce"), act: {
+               ItemBtnsView(p: 2,h:40,name:"vegIcon",isCategory:true, act: {
                    selectedCategory = "Produce"
                })
                
-               ItemBtnsView(p: 2,h:40,name:convertLang("고기", "Meat"), act: {
+               ItemBtnsView(p: 2,h:40,name:"meatIcon",isCategory:true, act: {
                    selectedCategory = "Meat"
                })
-               ItemBtnsView(p: 2,h:40,name:convertLang("해산물", "Seafood"), act: {
+               ItemBtnsView(p: 2,h:40,name:"seafoodIcon",isCategory:true, act: {
                    selectedCategory = "Seafood"
                })
-               ItemBtnsView(p: 2,h:40,name:convertLang("양념", "Sauce"), act: {
+               ItemBtnsView(p: 2,h:40,name:"sauceIcon",isCategory:true, act: {
                    selectedCategory = "Sauce"
                })
                
                
            }//:HStack
            .padding(.horizontal,11)
-           
+           .padding(.bottom,50)
            HStack{
-               ItemBtnsView(p: 2,h:40,name:convertLang("말린제품", "Dry"), act: {
+               ItemBtnsView(p: 2,h:40,name:"dryIcon",isCategory:true, act: {
                    selectedCategory = "Dry"
                })
                
-               ItemBtnsView(p: 2,h:40,name:convertLang("유제품", "Dairy"), act: {
+               ItemBtnsView(p: 2,h:40,name:"dairyIcon",isCategory:true, act: {
                    selectedCategory = "Dairy"
                })
-               ItemBtnsView(p: 2,h:40,name:convertLang("냉동식품", "Junk"), act: {
+               ItemBtnsView(p: 2,h:40,name:"frozonIcon",isCategory:true, act: {
                   selectedCategory = "Junk"
                })
-               ItemBtnsView(p: 2,h:40,name:convertLang("기타", "Etc"), act: {
+               ItemBtnsView(p: 2,h:40,name:"etc",isCategory:true, act: {
                   selectedCategory = "Etc"
                })
                
