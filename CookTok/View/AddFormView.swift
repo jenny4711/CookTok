@@ -21,7 +21,7 @@ struct AddFormView: View {
    var body: some View {
        
        ZStack{
-           Color.customSkyBlue
+           Color.black
                .ignoresSafeArea()
            
            VStack(alignment:.leading){
@@ -87,7 +87,7 @@ struct AddFormView: View {
            
        }//:ZSTACK
        
-
+       .foregroundColor(Color.white)
    }
    
 }

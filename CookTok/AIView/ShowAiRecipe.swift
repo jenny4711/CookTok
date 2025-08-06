@@ -17,19 +17,19 @@ struct ShowAiRecipe: View {
         VStack(spacing: 0) {
            Text("AI RECIPE")
             .font(Font.bold25)
-            .foregroundColor(Color.customBlue)
+            .foregroundColor(Color.white)
             .padding(.bottom,10)
             .padding(.top,20)
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(.white)
+                    .fill(.black.opacity(0.2))
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         if let response = aiResponse {
 //                            Text(response)
                           FormattedRecipeText(text: response ?? "")
-                                .foregroundColor(.black)
+                                .foregroundColor(.white)
                         } else {
                             Text("레시피를 불러오는 중...")
                                 .foregroundColor(.gray)
@@ -41,8 +41,19 @@ struct ShowAiRecipe: View {
             }
             .padding()
         }
-        .background(Color.customSkyBlue)
-       
+        .background(
+            Image("recipeBk")
+                .resizable()
+                
+                .aspectRatio(contentMode: .fill)
+                .offset(y: 150)
+                .opacity(0.3)
+        )
+        .background(
+                    Color.black
+                        
+                        .ignoresSafeArea()
+                )
     }
 }
 
@@ -94,11 +105,7 @@ struct FormattedRecipeText: View {
                             ForEach(Array(section.content.components(separatedBy: "\n").enumerated()), id: \.offset) { index, item in
                                 if !item.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                                     HStack(alignment: .top, spacing: 8) {
-//                                        Text("\(index + 1).")
-//                                            .font(.body)
-//                                            .fontWeight(.semibold)
-//                                            .foregroundColor(.blue)
-//                                            .frame(width: 25, alignment: .leading)
+
                                         Text(item.trimmingCharacters(in: .whitespacesAndNewlines))
                                             .font(.body)
                                     }

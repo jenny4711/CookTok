@@ -12,6 +12,7 @@ import SwiftData
 struct CategoryBtnsView: View {
     @Query(sort: \User.id) private var userInfo: [User]
    @Binding var selectedCategory:String
+  
     var name:String = ""
    
    var body: some View {
@@ -21,16 +22,21 @@ struct CategoryBtnsView: View {
            HStack{
                ItemBtnsView(p: 2,h:40,name:"vegIcon",isCategory:true, act: {
                    selectedCategory = "Produce"
+                   
+                  
                })
                
                ItemBtnsView(p: 2,h:40,name:"meatIcon",isCategory:true, act: {
                    selectedCategory = "Meat"
+                  
                })
                ItemBtnsView(p: 2,h:40,name:"seafoodIcon",isCategory:true, act: {
                    selectedCategory = "Seafood"
+                  
                })
                ItemBtnsView(p: 2,h:40,name:"sauceIcon",isCategory:true, act: {
                    selectedCategory = "Sauce"
+                  
                })
                
                
@@ -40,16 +46,20 @@ struct CategoryBtnsView: View {
            HStack{
                ItemBtnsView(p: 2,h:40,name:"dryIcon",isCategory:true, act: {
                    selectedCategory = "Dry"
+                
                })
                
                ItemBtnsView(p: 2,h:40,name:"dairyIcon",isCategory:true, act: {
                    selectedCategory = "Dairy"
+                  
                })
                ItemBtnsView(p: 2,h:40,name:"frozonIcon",isCategory:true, act: {
                   selectedCategory = "Junk"
+                  
                })
                ItemBtnsView(p: 2,h:40,name:"etc",isCategory:true, act: {
                   selectedCategory = "Etc"
+                  
                })
                
                

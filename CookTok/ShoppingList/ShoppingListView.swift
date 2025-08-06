@@ -50,35 +50,7 @@ struct ShoppingListView: View {
 
                          Spacer()
                                 .frame(height:36)
-//                            HStack {
-//                              
-//                                HStack {
-//                                    
-//                                    Text("Categoris")
-//                                        .foregroundColor(.white)
-//                                    
-//                                    
-//                                    Picker("카테고리 선택", selection: $selectedCategory) {
-//                                        Text("All").tag("")
-//                                        
-//                                        ForEach(categoris, id: \.self) { category in
-//                                            
-//                                            Text(category).tag(category)
-//                                        }
-//                                        
-//                                        
-//                                        
-//                                    }
-//                                    .pickerStyle(.menu)
-//                                    .tint(.white)
-//                                    
-//                                }//:HSTACK PICKER(CATEGORY)
-//                              
-//
-//                               Spacer()
-//                               
-//                            } //:HStack(Picker)
-                            
+                        
                              // MARK: - Form(DATE,CATEGORY,SAVE)
                             AddListFormView (itemExpireDate:$itemExpireDate,itemName:$itemName,selectedCategory: $selectedCategory)
                          
@@ -260,27 +232,45 @@ struct AddListFormView: View {
                
             } //:HStack(Picker)
             
+            HStack {
+                Text("Expire Date")
+                Spacer()
+                HStack {
+                    
+                    Text(DateHelper.convertDate(inputDate: itemExpireDate))
+                        .font(.system(size: 18, weight: .medium))
+                    
+                    //                Image(systemName: "pencil")
+                }
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.gray)
+                )
+                .overlay {
+                    DatePicker("",
+                               selection: $itemExpireDate,
+                               in: Date()...,
+                               displayedComponents: .date,
+                               
+                               
+                               
+                    )
+                    .labelsHidden()
+                    .colorMultiply(Color.clear)
+                }
+            }
             
             
             
-            
-            
-            DatePicker("Expire Date",
-                       selection: $itemExpireDate,
-                       in: Date()...,
-                       displayedComponents: .date,
-                       
-                       
-                       
-            )
             
             TextField("ItemName",text:$itemName)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding()
-            
-                .background(Color.customInputbk)
-                .opacity(0.3)
-            // 배경색 설정
+                .foregroundColor(Color.white)
+                
+                .background(Color.customInputbk.opacity(0.3))
+
                 .cornerRadius(8)
             
             Button("SAVE") {
@@ -289,7 +279,7 @@ struct AddListFormView: View {
                     let item = ShopingItem()
                     item.itemName = itemName
                     item.category = selectedCategory
-                    item.expireDate = itemExpireDate
+                    item.expireDate = DateHelper.addDays(to: itemExpireDate, days: 10)
                     context.insert(item)
                 }
                 
@@ -299,7 +289,7 @@ struct AddListFormView: View {
                 
             }//:BUTTON
             .buttonStyle(.bordered)
-            .background(Color.customBlue)
+//            .background(Color.customBlue)
             
             .foregroundColor(.white)
             .cornerRadius(10)
