@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52B378C9B2BD9778AFE3884C /* Pods_CookTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2174096ADFE2F785C85084E2 /* Pods_CookTok.framework */; };
+		B574798889741D5DB2E3016C /* Pods_CookTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F494E613BFB15EE10596A2F /* Pods_CookTok.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2174096ADFE2F785C85084E2 /* Pods_CookTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B9E19B4284D9C6333ADAAE7 /* Pods-CookTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookTok.debug.xcconfig"; path = "Target Support Files/Pods-CookTok/Pods-CookTok.debug.xcconfig"; sourceTree = "<group>"; };
+		3F494E613BFB15EE10596A2F /* Pods_CookTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DD06D5E3BFB724433746C2C /* Pods-CookTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookTok.release.xcconfig"; path = "Target Support Files/Pods-CookTok/Pods-CookTok.release.xcconfig"; sourceTree = "<group>"; };
+		98CD4DFFBAEC1F47BB907B5F /* Pods-CookTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookTok.debug.xcconfig"; path = "Target Support Files/Pods-CookTok/Pods-CookTok.debug.xcconfig"; sourceTree = "<group>"; };
 		A5CC4D122E277CA3005FDD11 /* CookTok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookTok.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E33663A98712988B21647955 /* Pods-CookTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookTok.release.xcconfig"; path = "Target Support Files/Pods-CookTok/Pods-CookTok.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -30,26 +30,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52B378C9B2BD9778AFE3884C /* Pods_CookTok.framework in Frameworks */,
+				B574798889741D5DB2E3016C /* Pods_CookTok.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57E20C36BBB2184CA9CE1BB2 /* Pods */ = {
+		2D9D6914E0A7615959A5FC28 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B9E19B4284D9C6333ADAAE7 /* Pods-CookTok.debug.xcconfig */,
-				E33663A98712988B21647955 /* Pods-CookTok.release.xcconfig */,
+				98CD4DFFBAEC1F47BB907B5F /* Pods-CookTok.debug.xcconfig */,
+				4DD06D5E3BFB724433746C2C /* Pods-CookTok.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		831C37775887A54D01BA6970 /* Frameworks */ = {
+		95D634BAB726FD43E998F806 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2174096ADFE2F785C85084E2 /* Pods_CookTok.framework */,
+				3F494E613BFB15EE10596A2F /* Pods_CookTok.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -59,8 +59,8 @@
 			children = (
 				A5CC4D142E277CA3005FDD11 /* CookTok */,
 				A5CC4D132E277CA3005FDD11 /* Products */,
-				57E20C36BBB2184CA9CE1BB2 /* Pods */,
-				831C37775887A54D01BA6970 /* Frameworks */,
+				2D9D6914E0A7615959A5FC28 /* Pods */,
+				95D634BAB726FD43E998F806 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,11 +79,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5CC4D1D2E277CA6005FDD11 /* Build configuration list for PBXNativeTarget "CookTok" */;
 			buildPhases = (
-				AC890C092DFF2F62F689A71E /* [CP] Check Pods Manifest.lock */,
+				2EB684D41ABFE98D8440DDFC /* [CP] Check Pods Manifest.lock */,
 				A5CC4D0E2E277CA3005FDD11 /* Sources */,
 				A5CC4D0F2E277CA3005FDD11 /* Frameworks */,
 				A5CC4D102E277CA3005FDD11 /* Resources */,
-				2BD6F9AC2A397C30056DFEF3 /* [CP] Embed Pods Frameworks */,
+				FD8C8C6D255189A9B7EB90B2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -142,28 +142,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2BD6F9AC2A397C30056DFEF3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CookTok/Pods-CookTok-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CookTok/Pods-CookTok-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookTok/Pods-CookTok-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AC890C092DFF2F62F689A71E /* [CP] Check Pods Manifest.lock */ = {
+		2EB684D41ABFE98D8440DDFC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -183,6 +162,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD8C8C6D255189A9B7EB90B2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookTok/Pods-CookTok-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookTok/Pods-CookTok-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookTok/Pods-CookTok-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -321,7 +321,7 @@
 		};
 		A5CC4D1E2E277CA6005FDD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B9E19B4284D9C6333ADAAE7 /* Pods-CookTok.debug.xcconfig */;
+			baseConfigurationReference = 98CD4DFFBAEC1F47BB907B5F /* Pods-CookTok.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -351,7 +351,7 @@
 		};
 		A5CC4D1F2E277CA6005FDD11 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E33663A98712988B21647955 /* Pods-CookTok.release.xcconfig */;
+			baseConfigurationReference = 4DD06D5E3BFB724433746C2C /* Pods-CookTok.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
