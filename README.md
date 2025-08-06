@@ -1,11 +1,34 @@
+<<<<<<< HEAD
 # CookTok 🍳
 
 A smart grocery management app with AI-powered recipe recommendations.
+=======
+<h1>COOKTOK(SWIFTUI) </h1>
+
+
+
+<img width="891" height="388" alt="allImg" src="https://github.com/user-attachments/assets/4f8e8c2e-231b-4ae2-afa4-461667fa7eb2" />
+
+
+
+<h3>Figma</h3>>
+<link>https://www.figma.com/design/X2FYbWuZFpPpA4H2zPOyJn/Cooktok?node-id=0-1&t=ucJEqgmVXRRSblwt-1</link>
+
+
+# CookTok 🍳
+>>>>>>> 177c5e7d795d1721bdc5289f8d61bb261271796a
 
 ## 🎥 Demo Video
 [![CookTok Demo](https://img.youtube.com/vi/MVAb56EylyI/0.jpg)](https://youtube.com/shorts/MVAb56EylyI)
 
 *Click the image above to watch the demo video*
+<<<<<<< HEAD
+=======
+
+<a href="https://youtube.com/shorts/lVpPfzyO9U0" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.youtube.com/vi/lVpPfzyO9U0/maxresdefault.jpg" width="400" height="300" alt="CookTok Demo">
+</a>
+>>>>>>> 177c5e7d795d1721bdc5289f8d61bb261271796a
 
 ## About
 
