@@ -16,11 +16,13 @@ struct ItemsList: View {
     @State private var showForm:Bool = false
         @State private var isEdit:Bool = false
     @State private var isEditOpen:Bool = false
+    @State private var shouldNavigateBack = false
     @State private var selectedItem = Items()
     @State var itemName:String = ""
     @State var itemExpireDate:Date = Date()
     @State var newItem:Items?
     @State var aiAnswer:Bool = false
+
     @StateObject private var askAI = AskAI()
 //    let categoris:[String] = ["Produce","Meat","Seafood","Sauce","Dry","Dairy","Junk","Etc"]
 //    let categorisKR:[String] = ["채소","고기","해산물","양념","마른것","유제품","인스턴트","기타"]
@@ -42,8 +44,9 @@ struct ItemsList: View {
     var body: some View {
       
         NavigationStack {
+           
             ZStack{
-
+               
                 VStack{
                     // MARK: - Category Title
                     HStack {
@@ -53,20 +56,20 @@ struct ItemsList: View {
                         Spacer()
                     }//:HSTACK(CATEGORY TITLE)
                     
-
+  
                     .padding(.leading,15)
                     
                     
                      // MARK: CATEGORYBTN
-                        CategoryBtnsView(selectedCategory: $selectedCategory)
+                    CategoryBtnsView(selectedCategory: $selectedCategory)
                         .padding(.bottom,20)
-                  
+                    
                     
                     
                     // MARK: TITLE and ADDBTN
                     HStack{
                         if userInfo.first?.language == "KOR" {
-                            Text("재료")
+                            Text(selectedCategory != "" ? selectedCategory:"재료")
                         }else{
                             Text(selectedCategory != "" ? selectedCategory.uppercased():"Ingredients")
                                 .font(Font.bold25)
@@ -86,7 +89,7 @@ struct ItemsList: View {
 
                     // MARK: ITEM LIST
                     ScrollView{
-                        ForEach(selectedCategory != "" ? filteredItems:allFilteredItems){
+                        ForEach(selectedCategory != ""  ? filteredItems:allFilteredItems){
                             i in
                             
                             ItemBtnsView(
@@ -94,10 +97,12 @@ struct ItemsList: View {
                                 h:50,
                                 c: i.expireDate <= Date() ? .red : .white,
                                 name:i.itemName,
+                              
+                                isCategory:false,
                                 act: {
                                 selectedItem = i
                                     selectedExpireDate = i.expireDate
-                                    selectedCategory = i.category ?? ""
+                                    selectedCategory =  ""
                                     isEditOpen = true
                                 
                                 
@@ -108,18 +113,28 @@ struct ItemsList: View {
                         
 
                     }//:Scroll
-                    
+                    .foregroundColor(.white)
                     .navigationBarTitleDisplayMode(.inline)
+                    
+                     // MARK: - NAVIGATION BAR(BACK,RESET BTN)
                     .toolbar{
+                        ToolbarItem(placement:.topBarLeading){
+                            NavigationLink(destination: ShoppingListView(), isActive: $shouldNavigateBack) {
+                                       Image(systemName: "chevron.backward")
+                                   }
+                        }//:TOOLBARITEM(BACK BTN)
+                        
                         ToolbarItem(placement:.topBarTrailing){
-                            
-                            
-                            ResetBtnView(selectedCategory: $selectedCategory)
+                         
+                                    ResetBtnView(selectedCategory: $selectedCategory)
+                                
+
                         }//:TOOLBARITEM
                         
 
                     }//:TOOLBAR
-                    
+                    .navigationBarBackButtonHidden(true)
+                     // MARK: - AI BTN
                     HStack {
                         Spacer()
                         Button(action: {
@@ -139,9 +154,7 @@ struct ItemsList: View {
                         }) {
                             ZStack {
                          
-                                Circle()
-                                    .frame(width: 80, height: 80)
-                                    .tint(.white)
+                             
                                 VStack(spacing: 2) {
                                     
                                     if(askAI.isLoading){
@@ -149,11 +162,9 @@ struct ItemsList: View {
                                             .font(Font.bold16)
                                     }else{
                                         
-                                        Text(userInfo.first?.language == "ENG" ? "GET" : "레서피")
-                                             .font(Font.bold16)
-                                        Text(userInfo.first?.language == "ENG" ? "RECIPE" : "받기")
-                                          
-                                            .font(Font.bold16)
+                                        Image("recipe")
+                                        
+
                                     }
                                     
                                                                 }
@@ -163,15 +174,23 @@ struct ItemsList: View {
                     .padding(.trailing,16)
          
                                 }//:VSTACK
-                
+                .foregroundColor(.white)
             
 
                 
             }//:ZSTACK
             .background(
-                LinearGradient(colors: [Color.customSkyBlue,Color.customBlue], startPoint: .top, endPoint: .bottom)
-                    .ignoresSafeArea()
+                Image("veg")
+                    .opacity(0.6)
+                  
+
             )
+            .background(
+                        Color.black
+                            
+                            .ignoresSafeArea()
+                    )
+                   
             
             .sheet(item: $newItem) {
                 item in
@@ -205,6 +224,7 @@ struct ItemsList: View {
 
             
         }//:NAVIGATIONSTACK
+//        .navigationBarBackButtonHidden()
         .onAppear{
             print("ItemListLang:\(userInfo.first?.language ?? "NoLang")")
         }
@@ -222,7 +242,7 @@ struct ResetBtnView: View {
             selectedCategory = ""
         }
         .font(Font.bold16)
-        .foregroundColor(.black)
+        .foregroundColor(.white)
     }
 }
 

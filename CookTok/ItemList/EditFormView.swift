@@ -18,7 +18,7 @@ struct EditFormView: View {
     var body: some View {
         ZStack {
       
-            Color.customSkyBlue
+            Color.black
                 .ignoresSafeArea()
             VStack(spacing:8){
                 
@@ -115,7 +115,7 @@ struct EditFormView: View {
             selectedExpireDate = selectedItem.expireDate
             selectedCategory = selectedItem.category ?? ""
         }
-        .foregroundStyle(.black)
+        .foregroundStyle(.white)
         
     }
 }
